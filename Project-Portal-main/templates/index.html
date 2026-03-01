@@ -84,7 +84,7 @@
                             <small class="text-muted">Folder ID: {{ p.drive_id[:12] }}...</small>
                         </td>
                         <td>
-                            {% for email in p.assigned_user.split(',') %}
+                            {% for email in p.user_emails %}
                                 <span class="badge-user">{{ email.strip() }}</span>
                             {% endfor %}
                         </td>
@@ -93,7 +93,12 @@
                                 <a href="https://drive.google.com/drive/folders/{{ p.drive_id }}" target="_blank" class="btn action-btn px-3" title="Open Drive"><i class="fa-brands fa-google-drive text-primary"></i></a>
                                 <button class="btn action-btn px-3" onclick="copyLink('https://drive.google.com/drive/folders/{{ p.drive_id }}')" title="Copy Link"><i class="fa-solid fa-link text-secondary"></i></button>
                                 <a href="https://wa.me/?text=BSL Folder for {{ p.name }}: https://drive.google.com/drive/folders/{{ p.drive_id }}" target="_blank" class="btn action-btn px-3" title="WhatsApp"><i class="fa-brands fa-whatsapp" style="color: #25D366;"></i></a>
-                                <a href="/delete/{{ p.id }}" class="btn action-btn px-3" onclick="return confirm('Remove project record?')" title="Delete"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                <form action="/delete/{{ p.id }}" method="POST" class="d-inline" onsubmit="return submitDelete(this);">
+                                    <input type="hidden" name="admin_pass" value="">
+                                    <button type="submit" class="btn action-btn px-3" title="Delete">
+                                        <i class="fa-solid fa-trash-can text-danger"></i>
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -119,6 +124,12 @@ function searchTable() {
 function copyLink(url) {
     navigator.clipboard.writeText(url);
     alert("Project link copied successfully!");
+}
+function submitDelete(form) {
+    var pass = prompt("Enter admin password to delete this project:");
+    if (!pass) return false;
+    form.querySelector('input[name="admin_pass"]').value = pass;
+    return confirm("Remove project record?");
 }
 </script>
 </body>

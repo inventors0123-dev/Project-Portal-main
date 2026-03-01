@@ -14,3 +14,5 @@ spec.loader.exec_module(module)
 # Expose Flask app for gunicorn: `gunicorn app:app`
 app = module.app
 init_db = getattr(module, "init_db", None)
+Project = getattr(module, "Project", None)
+ProjectAccess = getattr(module, "ProjectAccess", None)

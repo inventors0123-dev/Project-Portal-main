@@ -4,7 +4,7 @@ services:
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: python init_db.py && gunicorn app:app
     healthCheckPath: /healthz
     autoDeploy: true
     envVars:
@@ -14,3 +14,7 @@ services:
         sync: false
       - key: GOOGLE_CREDENTIALS_JSON
         sync: false
+      - key: DRIVE_PARENT_FOLDER_ID
+        sync: false
+      - key: SEND_PERMISSION_EMAIL
+        value: "true"

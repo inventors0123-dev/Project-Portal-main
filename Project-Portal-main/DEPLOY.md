@@ -5,9 +5,11 @@
 - `DATABASE_URL` (PostgreSQL connection string)
 - `ADMIN_PASSWORD` (strong password)
 - `GOOGLE_CREDENTIALS_JSON` (full service-account JSON as one line)
+- `DRIVE_PARENT_FOLDER_ID` (Google Drive folder ID where new project folders are created)
 
 Optional:
 - `SERVICE_ACCOUNT_FILE` (defaults to `credentials.json`)
+- `SEND_PERMISSION_EMAIL` (`true` or `false`)
 - `FLASK_DEBUG` (`false` in production)
 
 ## Render
@@ -15,10 +17,9 @@ Optional:
 1. Create Web Service from this repository.
 2. Set Root Directory to `Project-Portal-main` (if your repo has the extra outer folder).
 3. Build Command: `pip install -r requirements.txt`
-4. Start Command: `gunicorn app:app`
+4. Start Command: `python init_db.py && gunicorn app:app`
 5. Add environment variables listed above.
-6. After first deploy, run one-time DB init command:
-   - `python init_db.py`
+6. DB initialization is automatic on each deploy (no Render Shell required).
 
 ## Vercel
 
