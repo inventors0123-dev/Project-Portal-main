@@ -7,6 +7,7 @@ from google.oauth2 import service_account
 
 app = Flask(__name__)
 os.makedirs(app.instance_path, exist_ok=True)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # --- SECURE CONFIGURATION ---
 # This pulls the database link from platform Environment Variables.
@@ -49,7 +50,8 @@ def get_drive_service():
         )
     else:
         creds = service_account.Credentials.from_service_account_file(
-            SERVICE_ACCOUNT_FILE, scopes=SCOPES
+            SERVICE_ACCOUNT_FILE if os.path.isabs(SERVICE_ACCOUNT_FILE) else os.path.join(BASE_DIR, SERVICE_ACCOUNT_FILE),
+            scopes=SCOPES
         )
     return build('drive', 'v3', credentials=creds)
 
