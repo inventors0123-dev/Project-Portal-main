@@ -68,7 +68,7 @@ def index():
 
 @app.route('/create_page')
 def create_page():
-    return render_template('create.html')
+    return redirect(url_for('index') + "#new-project")
 
 @app.route('/healthz')
 def healthz():
