@@ -1,0 +1,21 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local env files
+.env
+.env.local
+
+# Sensitive files
+credentials.json
+Project-Portal-main/credentials.json
+
+# Local DB/state
+instance/
+*.db
+Project-Portal-main/instance/
