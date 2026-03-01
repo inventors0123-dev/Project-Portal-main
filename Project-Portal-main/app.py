@@ -1,6 +1,6 @@
 import json
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
@@ -73,6 +73,14 @@ def create_page():
 @app.route('/healthz')
 def healthz():
     return {"status": "ok"}, 200
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(
+        os.path.join(app.root_path, "static"),
+        "favicon.svg",
+        mimetype="image/svg+xml",
+    )
 
 @app.route('/create', methods=['POST'])
 def create_project():
